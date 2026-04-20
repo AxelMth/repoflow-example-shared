@@ -34,24 +34,7 @@ jobs:
       - name: Test
         run: pnpm test
 
-      - name: Apply changesets
-        uses: changesets/action@v1
-        with:
-          publish: echo "Skipping auto-publish — using manual dispatch below"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Publish — core
-        run: pnpm --filter "@axelmth/repoflow-core" publish --access public --no-git-checks
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Publish — cli
-        run: pnpm --filter "@axelmth/repoflow" publish --access public --no-git-checks
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Publish — create-repoflow
-        run: pnpm --filter "create-repoflow" publish --access public --no-git-checks
+      - name: Publish
+        run: pnpm publish --access public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
